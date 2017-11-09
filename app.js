@@ -12,7 +12,7 @@ const wechat = require('co-wechat');
 
 const config = {
   token: 'liangtongzhuo',
-  appid: 'THE APPID',
+  appid: 'wxddeea05ac16ca936',
   encodingAESKey: 'QdJrC9S52so7T4bol9bIziVskK332nAwve5qJI1KfIY'
 };
 
@@ -30,8 +30,45 @@ app.use(views(path.join(__dirname, 'views')));
 app.use(statics(path.join(__dirname, 'public')));
 
 app.use(wechat(config).middleware(async (message, ctx) => {
-
-}))
+  // 微信输入信息就是这个 message
+  if (message.FromUserName === 'diaosi') {
+    // 回复屌丝(普通回复)
+    return 'hehe';
+  } else if (message.FromUserName === 'text') {
+    //你也可以这样回复text类型的信息
+    return {
+      content: 'text object',
+      type: 'text'
+    };
+  } else if (message.FromUserName === 'hehe') {
+    // 回复一段音乐
+    return {
+      type: "music",
+      content: {
+        title: "来段音乐吧",
+        description: "一无所有",
+        musicUrl: "http://mp3.com/xx.mp3",
+        hqMusicUrl: "http://mp3.com/xx.mp3"
+      }
+    };
+  } else if (message.FromUserName === 'kf') {
+    // 转发到客服接口
+    return {
+      type: "customerService",
+      kfAccount: "test1@test"
+    };
+  } else {
+    // 回复高富帅(图文回复)
+    return [
+      {
+        title: '你来我家接我吧',
+        description: '这是女神与高富帅之间的对话',
+        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+        url: 'http://nodeapi.cloudfoundry.com/'
+      }
+    ];
+  }
+}));
 
 
 const router = new Router();
@@ -51,6 +88,8 @@ router.get('/', async function (ctx) {
 app.use(require('./routes/todos').routes());
 
 module.exports = app;
+
+
 
 
 
