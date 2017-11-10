@@ -32,7 +32,7 @@ app.use(statics(path.join(__dirname, 'public')));
 const router = new Router();
 app.use(router.routes());
 
-// // 加载云引擎中间件
+// 加载云引擎中间件
 app.use(AV.koa());
 
 app.use(bodyParser());
