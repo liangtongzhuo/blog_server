@@ -11,9 +11,9 @@ const bodyParser = require('koa-bodyparser');
 const wechat = require('co-wechat');
 
 const config = {
-  token: 'liangtongzhuo',
-  appid: 'wxddeea05ac16ca936',
-  encodingAESKey: 'QdJrC9S52so7T4bol9bIziVskK332nAwve5qJI1KfIY'
+  token: process.env.wechat_token,
+  appid: process.env.wechat_appid,
+  encodingAESKey: process.env.wechat_encodingAESKey
 };
 
 
@@ -51,13 +51,13 @@ app.use(wechat(config).middleware(async (message, ctx) => {
   if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)
     return 'hehe';
-  } else if (message.FromUserName === 'text') {
+  } else if (message.Content === 'text') {
     //你也可以这样回复text类型的信息
     return {
       content: 'text object',
       type: 'text'
     };
-  } else if (message.FromUserName === 'hehe') {
+  } else if (message.Content === 'hehe') {
     // 回复一段音乐
     return {
       type: "music",
@@ -68,7 +68,7 @@ app.use(wechat(config).middleware(async (message, ctx) => {
         hqMusicUrl: "http://mp3.com/xx.mp3"
       }
     };
-  } else if (message.FromUserName === 'kf') {
+  } else if (message.Content === 'kf') {
     // 转发到客服接口
     return {
       type: "customerService",
