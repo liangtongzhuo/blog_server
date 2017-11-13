@@ -9,6 +9,7 @@ const Todo = AV.Object.extend('Todo');
 
 // 查询 Todo 列表
 router.get('/', async function(ctx) {
+  console.log('-----',);
   ctx.state.title = 'TODO 列表';
   const query = new AV.Query(Todo);
   query.descending('createdAt');
