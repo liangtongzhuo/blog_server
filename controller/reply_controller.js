@@ -2,7 +2,6 @@
 
 module.exports = message =>{
     console.log('-----',message);
-    
       // 微信输入信息就是这个 message
   if (message.Content === 'diaosi') {
     // 回复屌丝(普通回复)

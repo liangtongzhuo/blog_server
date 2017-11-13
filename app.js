@@ -9,7 +9,7 @@ const views = require('koa-views');
 const statics = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const wechat = require('co-wechat');
-const reply = require('controller/reply_controller');
+const reply = require('./controller/reply_controller');
 
 const config = {
   token: process.env.wechat_token,
@@ -43,7 +43,7 @@ router.get('/', async function (ctx) {
 
 // 可以将一类的路由单独保存在一个文件中
 app.use(require('./routes/todos').routes());
-
+// 微信自动回复
 app.use(wechat(config).middleware(async (message, ctx) => {
   return reply(message);
 }));
