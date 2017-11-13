@@ -9,14 +9,13 @@ const views = require('koa-views');
 const statics = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const wechat = require('co-wechat');
+const reply = require('controller/reply_controller');
 
 const config = {
   token: process.env.wechat_token,
   appid: process.env.wechat_appid,
   encodingAESKey: process.env.wechat_encodingAESKey
 };
-
-
 
 // 加载云函数定义，你可以将云函数拆分到多个文件方便管理，但需要在主文件中加载它们
 require('./cloud');
@@ -46,45 +45,7 @@ router.get('/', async function (ctx) {
 app.use(require('./routes/todos').routes());
 
 app.use(wechat(config).middleware(async (message, ctx) => {
-  console.log('-----',message);
-  // 微信输入信息就是这个 message
-  if (message.Content === 'diaosi') {
-    // 回复屌丝(普通回复)
-    return 'hehe';
-  } else if (message.Content === 'text') {
-    //你也可以这样回复text类型的信息
-    return {
-      content: 'text object',
-      type: 'text'
-    };
-  } else if (message.Content === 'hehe') {
-    // 回复一段音乐
-    return {
-      type: "music",
-      content: {
-        title: "来段音乐吧",
-        description: "一无所有",
-        musicUrl: "http://mp3.com/xx.mp3",
-        hqMusicUrl: "http://mp3.com/xx.mp3"
-      }
-    };
-  } else if (message.Content === 'kf') {
-    // 转发到客服接口
-    return {
-      type: "customerService",
-      kfAccount: "test1@test"
-    };
-  } else {
-    // 回复高富帅(图文回复)
-    return [
-      {
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-        url: 'http://nodeapi.cloudfoundry.com/'
-      }
-    ];
-  }
+  return reply(message);
 }));
 
 module.exports = app;
