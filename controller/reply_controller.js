@@ -1,11 +1,16 @@
 'use strict';
 
 
-function reply (message){
-    console.log('-----',message);
-      // 微信输入信息就是这个 message
-
+function reply (message, ctx){
+    return '你好，暂时未完成';
 }
+
+
+
+
+
+
+
 
 
 module.exports = reply;

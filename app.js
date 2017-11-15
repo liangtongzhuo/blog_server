@@ -15,31 +15,28 @@ require('./cloud');
 
 const app = new Koa();
 
-
-
-
-
 // 设置模版引擎
-// app.use(views(path.join(__dirname, 'views')));
+app.use(views(path.join(__dirname, 'views')));
 
 // 设置静态资源目录
-// app.use(statics(path.join(__dirname, 'public')));
-
-// const router = new Router();
-// app.use(router.routes());
-
-// router.get('/', async function (ctx) {
-//   ctx.state.currentTime = new Date();
-//   await ctx.render('./index.ejs');
-// });
+app.use(statics(path.join(__dirname, 'public')));
 
 // 加载云引擎中间件
 app.use(AV.koa());
+// 解析 body
+app.use(bodyParser());
 
-// app.use(bodyParser());
+// 可以将一类的路由单独保存在一个文件中
+app.use(require('./routes/todos').routes());
 
-// // 可以将一类的路由单独保存在一个文件中
-// app.use(require('./routes/todos').routes());
+
+const router = new Router();
+app.use(router.routes());
+
+router.get('/', async function (ctx) {
+  ctx.state.currentTime = new Date();
+  await ctx.render('./index.ejs');
+});
 
 
 // 微信自动回复
@@ -52,12 +49,8 @@ const config = {
 };
 
 app.use(wechat(config).middleware(async (message, ctx) => {
-  return require('./controller/reply_controller');
+  return require('./controller/reply_controller')(message, ctx);
 }));
-
-
-
-
 
 
 module.exports = app;
