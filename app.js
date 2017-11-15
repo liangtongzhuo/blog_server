@@ -15,13 +15,7 @@ require('./cloud');
 
 const app = new Koa();
 
-const wechat = require('co-wechat');
 
-const config = {
-  token: process.env.wechat_token,
-  appid: process.env.wechat_appid,
-  encodingAESKey: process.env.wechat_encodingAESKey
-};
 
 
 
@@ -49,10 +43,16 @@ app.use(AV.koa());
 
 
 // 微信自动回复
-app.use(require('./controller/reply_controller').routes());
+const wechat = require('co-wechat');
+
+const config = {
+  token: process.env.wechat_token,
+  appid: process.env.wechat_appid,
+  encodingAESKey: process.env.wechat_encodingAESKey
+};
 
 app.use(wechat(config).middleware(async (message, ctx) => {
-  return message.toString();
+  return require('./controller/reply_controller');
 }));
 
 

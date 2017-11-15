@@ -1,18 +1,5 @@
 'use strict';
 
-const router = new require('koa-router')();
-const wechat = require('co-wechat');
-
-const config = {
-  token: process.env.wechat_token,
-  appid: process.env.wechat_appid,
-  encodingAESKey: process.env.wechat_encodingAESKey
-};
-
-
-// router.all(wechat(config).middleware(async (message, ctx) => {
-//   return message.toString();
-// }))
 
 function reply (message){
     console.log('-----',message);
@@ -21,4 +8,4 @@ function reply (message){
 }
 
 
-module.exports = router;
+module.exports = reply;
