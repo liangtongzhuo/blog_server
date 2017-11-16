@@ -6,7 +6,7 @@ function reply(message, ctx) {
     
     //关注
     if (message.Event == 'subscribe') {
-        return '你关注了梁同桌<br>博客: liangtongzhuo.com<br>知乎／bilibili／微博／github 都为梁同桌<br>这个公众号会搞一些有意思的事！😳😳😳';
+        return '你关注了梁同桌\n博客: liangtongzhuo.com\n知乎、bilibili微博、github，都为梁同桌\n这个公众号会有一些有意思的事！😳😳😳';
     }
     // 文本
     if (message.MsgType == 'text') {
@@ -19,13 +19,9 @@ function reply(message, ctx) {
         return '不听不听，回复 “1” ，选择餐馆'
     }
 
-
-
-
     return '莫名其妙，啦啦啦啦啦！';
 }
 
-// Math.random()
 
 
 
