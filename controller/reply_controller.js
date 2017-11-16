@@ -12,7 +12,7 @@ function reply(message, ctx) {
     if (message.MsgType == 'text') {
         if (message.Content == '1') {
             const arr = ['四川饭庄', '兰州拉面', '饺子馆'];
-            let i = parseInt(Math.random() * 90) % 3;
+            const i = parseInt(Math.random() * 90) % 3;
             return arr[i];
         }
 
