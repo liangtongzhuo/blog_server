@@ -2,8 +2,8 @@
 
 
 function reply(message, ctx) {
-    console.log('-----', message);
-    
+    console.log('-----', message, ctx.request);
+
     //关注
     if (message.Event == 'subscribe') {
         return '你关注了梁同桌\n博客: liangtongzhuo.com\n知乎、bilibili微博、github，都为梁同桌\n这个公众号会搞一些有意思的事！😳😳😳';
@@ -12,7 +12,7 @@ function reply(message, ctx) {
     if (message.MsgType == 'text') {
         if (message.Content == '1') {
             const arr = ['四川饭庄', '兰州拉面', '饺子馆'];
-            const i = parseInt(Math.random() * 90) % 3;
+            const i = parseInt(message.CreateTime) % 3;//获取随机
             return arr[i];
         }
 
@@ -21,7 +21,6 @@ function reply(message, ctx) {
 
     return '莫名其妙，啦啦啦啦啦！';
 }
-
 
 
 
