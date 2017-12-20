@@ -32,6 +32,7 @@ app.listen(PORT, function (err) {
   updateAccessToken()
     .then(data => {
       console.log('AccessToken', data)
+      global.access_token =  data.access_token //复制为全局
     })
     .catch(err => {
       console.log('验证 AccessToken 错误：', err)
