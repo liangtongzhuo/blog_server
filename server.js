@@ -1,5 +1,3 @@
-import { setInterval } from 'timers';
-
 var AV = require('leanengine')
 var request = require('request')
 
@@ -34,7 +32,7 @@ app.listen(PORT, function (err) {
   setInterval(() => {
     timeUpData()
   }, 1000 * 60 * 60 * 1.5)
-    timeUpData()
+  timeUpData()
 })
 
 function timeUpData() {
