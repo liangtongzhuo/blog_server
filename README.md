@@ -1,6 +1,5 @@
-基于 Leancloud 配置
 
-Node.js 验证微信 token
+Node.js 验证微信 token 
 ```
 var http = require("http");
 var url = require("url");
@@ -22,7 +21,7 @@ function validateToken(req,res){
   var oriArray = new Array();
   oriArray[0] = nonce;
   oriArray[1] = timestamp;
-  oriArray[2] = "liangtongzhuo";//这里是你在微信开发者中心页面里填的 token，而不是****
+  oriArray[2] = "liangtongzhuo";//这里是你在微信开发者中心页面里填的 token
   oriArray.sort();
   var original = oriArray.join('');
   console.log("Original str : " + original);
