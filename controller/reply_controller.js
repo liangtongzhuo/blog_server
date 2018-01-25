@@ -6,12 +6,12 @@ function reply(message, ctx) {
 
     //关注
     if (message.Event == 'subscribe') {
-        return '你关注了梁同桌\n博客: liangtongzhuo.com\n知乎、bilibili微博、github，都为梁同桌\n这个公众号会搞一些有意思的事！😳😳😳';
+        return '你关注了梁同桌公众号\n博客: liangtongzhuo.com\n知乎、bilibili、微博、github，id 都为「梁同桌」\n这个公众号会搞一些有意思的事，也可能万年不更新！😳😳😳';
     }
     // 文本
     if (message.MsgType == 'text') {
         if (message.Content == '1') {
-            const arr = ['四川饭庄', '兰州拉面', '饺子馆'];
+            const arr = ['四川饭庄', '兰州拉面', '饺子馆','烩面'];
             const i = parseInt(message.CreateTime) % 3;//获取随机
             return arr[i];
         }
