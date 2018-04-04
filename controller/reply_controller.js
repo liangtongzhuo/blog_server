@@ -9,13 +9,13 @@ const reply = async (message, ctx) => {
     }
     // 文本
     if (message.MsgType == 'text') {
-        if (message.Content == '1') {
+        if (message.Content == '吃饭' || message.Content == '换一家') {
             const arr = ['四川饭庄', '兰州拉面', '饺子馆', '烩面'];
-            const i = parseInt(Math.random() * arr.length );//获取随机
-            return arr[i];
+            const random = parseInt(Math.random() * arr.length );//获取随机
+            return arr[random];
         }
 
-        return '不听不听，回复 “1” ，选择餐馆'
+        return '不听不听，回复 “吃饭或换一家” ，选择餐馆'
     }
 
     return '莫名其妙，啦啦啦啦啦！';
