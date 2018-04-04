@@ -10,15 +10,27 @@ const reply = async (message, ctx) => {
     // 文本
     if (message.MsgType == 'text') {
         if (message.Content == '吃饭' || message.Content == '换一家') {
-            const arr = ['四川饭庄', '兰州拉面', '饺子馆', '烩面'];
+            const arr = ['西边盖浇饭', '西边茄汁面', '北边盖浇饭', '东边麻辣豆腐', '东边臊子面', '东边热干面', '东边胡辣汤', '东边清真饭店', '北边会面'];
             const random = parseInt(Math.random() * arr.length );//获取随机
-            return arr[random];
+            return arr[random] + '，不想吃回复“换一家” :)';
         }
 
-        return '不听不听，回复 “吃饭或换一家” ，选择餐馆'
+        if (message.Content == '喜欢你' || message.Content == '我喜欢你') {
+            return '我不会告诉梁同桌的，但是我会记到数据库离 :)，梁同桌那傻子是不会看的 :(';
+        }
+
+        if (message.Content == '不喜欢你' || message.Content == '我不喜欢你') {
+            return '哼！讨厌 :(';
+        }
+
+        if (message.Content == '你喜欢谁' || message.Content == '你喜欢谁？') {
+            return '讨厌，正在和我聊天的人。 害羞.jpg';
+        }
+
+        return '不听不听\n回复 “吃饭”，选择餐馆 :)'
     }
 
-    return '莫名其妙，啦啦啦啦啦！';
+    return '目前功能受限，只能回答吃饭的问题 :)';
 }
 
 
