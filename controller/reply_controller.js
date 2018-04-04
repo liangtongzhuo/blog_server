@@ -11,7 +11,7 @@ const reply = async (message, ctx) => {
     if (message.MsgType == 'text') {
         if (message.Content == '吃饭' || message.Content == '换一家') {
             const arr = ['西边盖浇饭', '西边茄汁面', '北边盖浇饭', '东边麻辣豆腐', '东边臊子面', '东边热干面', '东边胡辣汤', '东边清真饭店', '北边会面'];
-            const random = parseInt(Math.random() * arr.length );//获取随机
+            const random = parseInt(Math.random() * arr.length );
             return arr[random] + '，不想吃回复“换一家” :)';
         }
 
