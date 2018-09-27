@@ -57,8 +57,8 @@ async function postRequest(userId, content) {
       },
       userInfo: {
         apiKey: process.env.tuling_key,
-        // 做一下兼容，api 不支持 userId 带下划线，所以 encode 转译一下。
-        userId: encodeURIComponent(userId),
+        // 做一下兼容，api 不支持 userId 带下划线。
+        userId: userId.split('_')[1],
       },
     },
     maxAge: 1000,
