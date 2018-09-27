@@ -57,14 +57,15 @@ async function postRequest(userId, content) {
       },
       userInfo: {
         apiKey: process.env.tuling_key,
-        userId: userId,
+        // 做一下兼容，api 不支持 userId 带下划线，所以 encode 转译一下。
+        userId: encodeURIComponent(userId),
       },
     },
     maxAge: 1000,
     json: true,
   };
-  const result = await rp(options);
   try {
+    const result = await rp(options);
     return result.results[0].values.text;
   } catch (error) {
     return '梁同桌今天可能累，去睡觉觉了';
