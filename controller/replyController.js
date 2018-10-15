@@ -58,8 +58,9 @@ async function postRequest(userId, content) {
   }
 }
 
-// 根据信息信息返回回复文字信息
+// 根据文本返回回复文本
 function getMessage(message) {
+  let replyMessage = '';
   weChatReplys.forEach(weChatReply => {
     weChatReply
       .get('key')
@@ -69,14 +70,16 @@ function getMessage(message) {
         if (keySub.indexOf(message) !== -1) {
           const values = weChatReply.get('value').split(',');
           if (values.length === 1) {
-            return values[0];
+            replyMessage = values[0];
           } else {
+            // 文本用逗号分开，随机分配一个。
             const random = parseInt(Math.random() * values.length);
-            return values[random];
+            replyMessage = values[random];
           }
         }
       });
   });
+  return replyMessage;
 }
 
 module.exports.reply = reply;
