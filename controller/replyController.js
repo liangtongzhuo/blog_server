@@ -1,16 +1,6 @@
 'use strict';
-const rp = require ('request-promise');
-const AV = require ('leanengine');
-const WeChatReply = AV.Object.extend ('WeChatReply');
-let weChatReplys;
-(async function () {
-  const query = new AV.Query (WeChatReply);
-  try {
-    weChatReplys = await query.find ();
-  } catch (e) {
-    console.log ('query weChatReplys', e);
-  }
-}) ();
+const { postRequest } = require('./AIController')
+const { getMessage } = require('./leanController')
 
 const reply = async (message, ctx) => {
   console.log ('----消息', message);
@@ -23,63 +13,15 @@ const reply = async (message, ctx) => {
     // 先从自己数据库查询有没有自定义文本
     const replyMessage = getMessage (message.Content);
     if (replyMessage) return replyMessage;
+    // 调用其其它服务器进行微信登录
     else if (message.Content == '微信登录') {
       return '开发中';
     } else
-      // 请求智能返回语句
+      // 请求第三方 AI 语句
       return await postRequest (message.FromUserName, message.Content);
   }
   return '不听不听\n回复「吃饭」，选择餐馆 :)';
 };
 
-// 发送post请求
-async function postRequest (userId, content) {
-  const options = {
-    method: 'POST',
-    uri: 'http://openapi.tuling123.com/openapi/api/v2',
-    body: {
-      reqType: 0,
-      perception: {
-        inputText: {
-          text: content,
-        },
-      },
-      userInfo: {
-        apiKey: process.env.tuling_key,
-        // 做一下兼容，api 不支持 userId 带下划线。
-        userId: userId.split ('_')[1],
-      },
-    },
-    maxAge: 1000,
-    json: true,
-  };
-  try {
-    const result = await rp (options);
-    return result.results[0].values.text;
-  } catch (error) {
-    return '梁同桌今天可能累，去睡觉觉了';
-  }
-}
-
-// 根据文本返回回复文本
-function getMessage (message) {
-  let replyMessage;
-  weChatReplys.forEach (weChatReply => {
-    weChatReply.get ('key').split (',').forEach (keySub => {
-      // 匹配到了则回复
-      if (keySub.indexOf (message) !== -1) {
-        const values = weChatReply.get ('value').split (',');
-        if (values.length === 1) {
-          replyMessage = values[0];
-        } else {
-          // 文本用逗号分开，随机分配一个。
-          const random = parseInt (Math.random () * values.length);
-          replyMessage = values[random];
-        }
-      }
-    });
-  });
-  return replyMessage;
-}
 
 module.exports.reply = reply;
