@@ -29,7 +29,7 @@ function getMessage (message) {
       }
     });
   });
-  return getMessage;
+  return replyMessage;
 }
 
-module.exports = postRequest;
+module.exports = getMessage;
