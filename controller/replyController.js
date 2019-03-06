@@ -2,7 +2,6 @@
 const rp = require ('request-promise');
 const AV = require ('leanengine');
 const WeChatReply = AV.Object.extend ('WeChatReply');
-const {iniWechat} = require ('./wechatyController');
 let weChatReplys;
 (async function () {
   const query = new AV.Query (WeChatReply);
@@ -25,7 +24,7 @@ const reply = async (message, ctx) => {
     const replyMessage = getMessage (message.Content);
     if (replyMessage) return replyMessage;
     else if (message.Content == '微信登录') {
-      return await iniWechat ();
+      return '开发中';
     } else
       // 请求智能返回语句
       return await postRequest (message.FromUserName, message.Content);
