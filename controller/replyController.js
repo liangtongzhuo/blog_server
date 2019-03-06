@@ -2,7 +2,7 @@
 const rp = require('request-promise');
 const AV = require('leanengine');
 const WeChatReply = AV.Object.extend('WeChatReply');
-const iniWechat = require('./wechatyController');
+const {iniWechat}= require('./wechatyController');
 let weChatReplys;
 (async function() {
   const query = new AV.Query(WeChatReply);
