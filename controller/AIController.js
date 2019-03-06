@@ -29,4 +29,4 @@ async function postRequest (userId, content) {
   }
 }
 
-module.exports = postRequest;
+module.exports.postRequest = postRequest;
