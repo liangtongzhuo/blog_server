@@ -22,7 +22,8 @@
     "leancloud-storage": "^3.0.2",
     "leanengine": "^3.0.0",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "wechaty": "^0.22.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
