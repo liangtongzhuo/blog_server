@@ -32,4 +32,4 @@ function getMessage (message) {
   return replyMessage;
 }
 
-module.exports = getMessage;
+module.exports.getMessage = getMessage;
