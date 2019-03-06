@@ -20,6 +20,7 @@ const reply = async (message, ctx) => {
   }
   // 文本
   if (message.MsgType == 'text') {
+    // 先从自己数据库查询有没有自定义文本
     const replyMessage = getMessage(message.Content);
     if (replyMessage) return replyMessage;
 
@@ -44,7 +45,7 @@ async function postRequest(userId, content) {
       userInfo: {
         apiKey: process.env.tuling_key,
         // 做一下兼容，api 不支持 userId 带下划线。
-        userId: userId.split('_')[1],
+        userId: userId.replace('_'),
       },
     },
     maxAge: 1000,
@@ -60,7 +61,7 @@ async function postRequest(userId, content) {
 
 // 根据文本返回回复文本
 function getMessage(message) {
-  let replyMessage = '';
+  let replyMessage;
   weChatReplys.forEach(weChatReply => {
     weChatReply
       .get('key')
@@ -83,4 +84,4 @@ function getMessage(message) {
 }
 
 module.exports.reply = reply;
-module.exports.postRequest = postRequest;
+

@@ -10,7 +10,7 @@ const statics = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 // 微信自动回复模块
 const wechat = require('co-wechat');
-const { reply, postRequest} = require('./controller/replyController');
+const { reply } = require('./controller/replyController');
 
 // 加载云函数定义，你可以将云函数拆分到多个文件方便管理，但需要在主文件中加载它们
 require('./cloud');
