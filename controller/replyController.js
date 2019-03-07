@@ -15,7 +15,12 @@ const reply = async (message, ctx) => {
     if (replyMessage) return replyMessage;
     // 调用其其它服务器进行微信登录
     else if (message.Content == '微信登录') {
-      return '开发中';
+      return {
+        title: '微信登录二维码',
+        description: '扫码登录',
+        picurl: 'http://file.liangtongzhuo.com/6ad02577c3d0b0d6978b.gif',
+        url: 'http://file.liangtongzhuo.com/6ad02577c3d0b0d6978b.gif'
+      };
     } else
       // 请求第三方 AI 语句
       return await postRequest (message.FromUserName, message.Content);
